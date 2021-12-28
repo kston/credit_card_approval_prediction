@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Credit Card Application</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="card fade-in">
+            <div class="upper">
+                <h6>Credit</h6>
+                <h4>Visa</h4>
+            </div>
+            <div class="lower">
+                <h5>Samuel Richard</h5> <span>4564 - 3432 - 3434 - 1236</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+
+    body {
+        font-family: 'Maven Pro', sans-serif
+    }
+
+    .wrapper {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(90deg, rgba(35,141,214,1) 11%, rgba(47,122,190,1) 48%, rgba(0,10,36,1) 100%);
+
+    }
+
+
+
+    .card {
+        height: 180px;
+        width: 350px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 14px;
+        position: relative;
+        color: #fff;
+        background-image: url(https://i.imgur.com/5rm6bLu.jpg);
+        z-index: 5;
+        background-size: cover;
+        opacity: 1;
+        border: none;
+
+    }
+
+    .fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+}
+
+    @keyframes fadeInOpacity {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    .card::before {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        content: "";
+        bottom: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        border-radius: 14px;
+        background: rgb(63, 94, 251);
+        background: linear-gradient(90deg, rgba(63, 94, 251, 1) 0%, rgba(240, 50, 89, 1) 100%);
+        opacity: 0.8
+    }
+
+    .card::after {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        content: "";
+        bottom: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        border-radius: 14px;
+        background: rgb(63, 94, 251);
+        background: linear-gradient(90deg, rgba(63, 94, 251, 1) 0%, rgba(240, 50, 89, 1) 100%);
+        clip-path: polygon(28% 13%, 48% 45%, 75% 63%, 100% 99%, 0 100%, 0% 60%, 0 0)
+    }
+
+    .upper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1
+    }
+
+    .upper h6 {
+        font-size: 18px
+    }
+
+    .upper h4 {
+        font-size: 30px;
+        text-transform: uppercase
+    }
+
+    .lower {
+        position: absolute;
+        bottom: 20px;
+        z-index: 1
+    }
+</style>
+<script>
+
+</script>
+</script>

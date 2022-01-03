@@ -4,11 +4,14 @@ from flask import Flask, render_template, request, jsonify
 import sklearn, threadpoolctl, scipy, imblearn
 from lightgbm import LGBMClassifier
 from datetime import date, datetime
+
+from werkzeug.utils import redirect
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    modal_id = '#Amor'
+    return render_template('index.html', modal_id=modal_id)
 
 
 @app.route('/', methods=['POST'])
@@ -37,16 +40,23 @@ def submit_form():
         for column in df.columns:
             df[column] = df[column].astype(object)
         
-        df.to_csv('results.csv', index=False, header=True)
-
-        print(df)
-        print(df.info())
         # Get prediction
         prediction = list(model.predict(df))
         # Return JSON version of Prediction
-        return jsonify({'prediction': str(prediction)})
+        print(prediction[0])
+        if prediction[0] == 'Yes':
+            modal_id = '#model_approved'
+            return  render_template('index.html', modal_id= modal_id)
+        elif prediction[0] == 'No':
+            modal_id = '#modal_declained'
+            return  render_template('index.html', modal_id=modal_id)
+
+        #return jsonify({'prediction': str(prediction)})
+    
+    
     else:
-        'something went wrong. Try again.'
+        modal = "#modal_error"
+        return  render_template('index.html', modal=modal)
 
 @app.route("/card")
 def card():

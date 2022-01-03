@@ -23,7 +23,7 @@
 
         <div class="container">          
             
-            <form  action="/" method="post" class="row g-4 needs-validation"  id="new_card_form" onsubmit="openModal()" novalidate >
+            <form  action="/" method="post" class="row g-4 needs-validation" modal_id= '{{ modal_id }}' id="new_card_form" novalidate >
                 <!---->
                 <h1>Apply here for a new Credit Card</h1>
                 <div class="row">
@@ -208,7 +208,7 @@
     
                 </div>
                 <div class="row">
-                    <button type="submit" class="btn btn-primary col-lg-5 button_form" data-toggle="modal" data-target="#spinner">Submit</button>
+                    <button type="submit" class="btn btn-primary col-lg-5 button_form">Submit</button>
                     <button type="button" class="btn btn-danger col-lg-5 button_form">Cancel</button>
     
                 </div>
@@ -218,6 +218,7 @@
         </div>
 
         <!-- Modal  Declained HTML -->
+            
             <div id="modal_declained" class="modal fade">
                 <div class="modal-dialog modal-declained-confirm">
                     <div class="modal-content">
@@ -236,8 +237,9 @@
                     </div>
                 </div>
             </div>
-    
+           
             <!-- Modal Error HTML -->
+           
             <div id="modal_error" class="modal fade">
                 <div class="modal-dialog modal-error-confirm">
                     <div class="modal-content">
@@ -256,8 +258,10 @@
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
+            
 
+          
             <!-- Modal  Approved HTML -->
             <div id="model_approved" class="modal fade">
                 <div class="modal-dialog model-approved-confirm">
@@ -276,8 +280,8 @@
                         </div>
                     </div>
                 </div>
-            </div>  
-              
+            </div> 
+         
             <!--Spinner -->
 
             <div id="spinner" class="modal fade">
@@ -296,10 +300,7 @@
         
                     </div>
             </div>
-
-            
-                  
-                 
+       
                         
                     
 </body>
@@ -341,14 +342,27 @@ function setdate () {
           event.preventDefault()
           event.stopPropagation()
        
-        }
-
+        }    
         form.classList.add('was-validated')
-        
-        
+
+        if ( $('#new_card_form')[0].checkValidity() ) {
+             $('#spinner').modal('show');
+            }
+
       }, false)
     })
 })()
+
+
+
+
+var modal_id = document.getElementsByTagName('modal_id').value
+
+window.addEventListener('load', () => {
+      console.log(modal_id)
+  })
+
+
 
 </script>
 

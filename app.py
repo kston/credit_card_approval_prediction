@@ -1,17 +1,21 @@
 import pandas as pd
 import joblib
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
+from flask_session import Session
 import sklearn, threadpoolctl, scipy, imblearn
 from lightgbm import LGBMClassifier
 from datetime import date, datetime
+import time
 
 from werkzeug.utils import redirect
 app = Flask(__name__)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 @app.route("/")
 def index():
-    modal_id = '#Amor'
-    return render_template('index.html', modal_id=modal_id)
+    return render_template('index.html', modal_id='')
 
 
 @app.route('/', methods=['POST'])
@@ -39,25 +43,27 @@ def submit_form():
         
         for column in df.columns:
             df[column] = df[column].astype(object)
-        
         # Get prediction
         prediction = list(model.predict(df))
         # Return JSON version of Prediction
         print(prediction[0])
         if prediction[0] == 'Yes':
-            modal_id = '#model_approved'
-            return  render_template('index.html', modal_id= modal_id)
+            return  render_template('index.html', modal_id= '#modal_declained')
         elif prediction[0] == 'No':
-            modal_id = '#modal_declained'
-            return  render_template('index.html', modal_id=modal_id)
-
-        #return jsonify({'prediction': str(prediction)})
-    
-    
+            session['card'] = 'approved'
+            session['first_name'] = data['first_name']
+            session['last_name'] = data['last_name']
+            return  render_template('index.html', modal_id='#model_approved')
     else:
-        modal = "#modal_error"
-        return  render_template('index.html', modal=modal)
+        return  render_template('index.html', modal_id= "#modal_error")
 
 @app.route("/card")
 def card():
+      # check if the users exist or not
+    if not session.get("card"):
+        # if not there in the session then redirect to the login page
+        return redirect("/")
     return render_template('card.html')
+
+if __name__ == "__main__":
+    app.run()

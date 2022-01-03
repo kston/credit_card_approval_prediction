@@ -23,7 +23,7 @@
 
         <div class="container">          
             
-            <form  action="/" method="post" class="row g-4 needs-validation" modal_id= '{{ modal_id }}' id="new_card_form" novalidate >
+            <form  action="/" method="post" class="row g-4 needs-validation"  id="new_card_form" novalidate >
                 <!---->
                 <h1>Apply here for a new Credit Card</h1>
                 <div class="row">
@@ -276,7 +276,7 @@
                             <p class="text-center">Your card was approved</p>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success btn-block" data-dismiss="modal">See your card</button>
+                            <button class="btn btn-success btn-block" onclick="window.location.href='/card'">See your card</button>
                         </div>
                     </div>
                 </div>
@@ -354,12 +354,14 @@ function setdate () {
 })()
 
 
-
-
-var modal_id = document.getElementsByTagName('modal_id').value
+ // Show modal after prediction
+ var modal_id = '{{modal_id}}'
 
 window.addEventListener('load', () => {
-      console.log(modal_id)
+    if (modal_id) {
+        $(modal_id).modal('show');
+    }
+      
   })
 
 

@@ -1,3 +1,4 @@
 .ipynb_checkpoints
 .flaskenv
+flask_session
 venv

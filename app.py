@@ -1,11 +1,14 @@
 import pandas as pd
 import joblib
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, url_for, send_from_directory
 from flask_session import Session
 import sklearn, threadpoolctl, scipy, imblearn
 from lightgbm import LGBMClassifier
 from datetime import date, datetime
 import time
+import os
+import warnings
+warnings.filterwarnings("ignore")
 
 from werkzeug.utils import redirect
 app = Flask(__name__)
@@ -16,7 +19,7 @@ Session(app)
 @app.route("/")
 def index():
     return render_template('index.html', modal_id='')
-
+   
 
 @app.route('/', methods=['POST'])
 def submit_form():
@@ -64,6 +67,19 @@ def card():
         # if not there in the session then redirect to the login page
         return redirect("/")
     return render_template('card.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    print(e, request.url)
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    # note that we set the 500 status explicitly
+    app.logger.error(f"Server Error: {e} - url:{request.url}")
+    return render_template('500.html'), 500
 
 if __name__ == "__main__":
     app.run()
